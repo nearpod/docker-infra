@@ -1,7 +1,7 @@
 FROM nearpod/alpine-jvm:3.6-jdk8
 
-ARG GPG_KEY=C823E3E5B12AF29C67F81976F5CECB3CB5E9BD2D
-ARG ZK_DIST=zookeeper-3.4.10
+ARG SHA1_KEY=9268b4aed71dccad3d7da5bfa5573b66d2c9b565
+ARG ZK_DIST=zookeeper-3.4.11
 ARG ZK_USER=zookeeper
 ARG ZK_INSTALL_DIR=/usr/local/$ZK_DIST
 ARG ZK_DATA_DIR=/var/lib/zookeeper/data
@@ -19,15 +19,12 @@ ENV ZK_USER=$ZK_USER \
 RUN set -ex; \
     WORKDIR="$PWD"; \
     # netcat-openbsd is used by the zkOk.sh and zkMetrics.sh scripts
-    apk --no-cache --update add ca-certificates netcat-openbsd curl gnupg bash; \
+    apk --no-cache --update add ca-certificates netcat-openbsd curl bash; \
     curl -q -sSLO "http://www.apache.org/dist/zookeeper/$ZK_DIST/$ZK_DIST.tar.gz"; \
-    curl -q -sSLO "http://www.apache.org/dist/zookeeper/$ZK_DIST/$ZK_DIST.tar.gz.asc"; \
-    export GNUPGHOME="$(mktemp -d)"; \
-    gpg --keyserver ha.pool.sks-keyservers.net --recv-key "$GPG_KEY"; \
-    gpg --batch --verify "$ZK_DIST.tar.gz.asc" "$ZK_DIST.tar.gz"; \
+    echo "$SHA1_KEY  $ZK_DIST.tar.gz" | sha1sum -c; \
     mkdir -p "$ZK_INSTALL_DIR"; \
     tar -xzf "$ZK_DIST.tar.gz" --strip-components=1 -C "$ZK_INSTALL_DIR"; \
-    rm -rf "$GNUPGHOME" "$ZK_DIST.tar.gz" "$ZK_DIST.tar.gz.asc"; \
+    rm -rf "$ZK_DIST.tar.gz"; \
     rm -rf "$ZK_INSTALL_DIR/CHANGES.txt" "$ZK_INSTALL_DIR/README.txt" \
     "$ZK_INSTALL_DIR/NOTICE.txt" "$ZK_INSTALL_DIR/CHANGES.txt" \
     "$ZK_INSTALL_DIR/README_packaging.txt" "$ZK_INSTALL_DIR/build.xml" \
@@ -36,8 +33,7 @@ RUN set -ex; \
     "$ZK_INSTALL_DIR/ivy.xml" "$ZK_INSTALL_DIR/ivysettings.xml" \
     "$ZK_INSTALL_DIR/recipes" "$ZK_INSTALL_DIR/src" \
     "$ZK_INSTALL_DIR/$ZK_DIST.jar.asc" "$ZK_INSTALL_DIR/$ZK_DIST.jar.md5" \
-    "$ZK_INSTALL_DIR/$ZK_DIST.jar.sha1"; \
-    apk del gnupg
+    "$ZK_INSTALL_DIR/$ZK_DIST.jar.sha1"
 
 # Copy configuration generator script to bin
 COPY files/zkGenConfig.sh files/zkOk.sh files/zkMetrics.sh ./bin/
