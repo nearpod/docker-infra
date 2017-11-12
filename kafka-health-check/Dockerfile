@@ -1,8 +1,13 @@
 FROM frolvlad/alpine-glibc:alpine-3.6
 
+MAINTAINER dockerfiles@nearpod.com
+
+WORKDIR /usr/local
+
 ARG KAFKA_HEALTH_CHECK_VERSION=0.0.2
 
 ENV KAFKA_USER=kafka
+ENV LANG="C.UTF-8"
 
 RUN set -ex; \
     WORKDIR="$PWD"; \
