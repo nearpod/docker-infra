@@ -24,13 +24,13 @@ RUN set -ex; \
     \
     mkdir -p /opt/src/common; cd /opt/src/common; \
     curl -q -sSL "https://github.com/confluentinc/common/archive/v$CONFLUENT_VERSION.tar.gz" | tar -xzf - --strip-components=1 -C ./; \
-    mvn install; \
+    mvn install -Dmaven.test.skip=true; \
     mkdir -p /opt/src/rest-utils; cd /opt/src/rest-utils; \
     curl -q -sSL "https://github.com/confluentinc/rest-utils/archive/v$CONFLUENT_VERSION.tar.gz" | tar -xzf - --strip-components=1 -C ./; \
-    mvn install; \
+    mvn install -Dmaven.test.skip=true; \
     mkdir -p /opt/src/kafka-rest; cd /opt/src/kafka-rest; \
     curl -q -sSL "https://github.com/confluentinc/kafka-rest/archive/v$CONFLUENT_VERSION.tar.gz" | tar -xzf - --strip-components=1 -C ./; \
-    mvn install; \
+    mvn install -Dmaven.test.skip=true; \
     \
     cd $WORKDIR; \
     mkdir -p $WORKDIR/share/java; \
