@@ -29,3 +29,7 @@ A Go application that presents a REST interface to query Kafka broker health. ([
 -----------------------------------------
 An application that presents a REST interface to produce data to a Kafka broker
 or consume data from it. ([github](https://github.com/confluentinc/kafka-rest))
+
+[keycloak](keycloak/)
+-----------------------------------------
+Open Source Identity and Access Management For Modern Applications and Services. ([github](https://github.com/keycloak/keycloak))
