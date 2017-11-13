@@ -26,5 +26,7 @@ else
     echo "[KEYCLOAK DOCKER IMAGE] Using the embedded H2 database"
 fi
 
+$KEYCLOAK_BIN/add-user-keycloak.sh -r master -u ${KEYCLOAK_MASTER_USER:admin} -p $KEYCLOAK_MASTER_PASSWORD
+
 exec $KEYCLOAK_BIN/standalone.sh $@
 exit $?

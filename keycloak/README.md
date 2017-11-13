@@ -10,3 +10,16 @@ keycloak
 
 This project contains a Docker image meant to facilitate the deployment of
 [JBoss Keycloak](https://keycloak.org) on [Kubernetes](http://kubernetes.io/).
+
+
+### Docker Compose
+
+There are two sample docker compose configurations to play with.
+
+Postgres
+
+    cd compose/postgres; docker-compose up
+
+MySQL
+
+    cd compose/mysql; docker-compose up

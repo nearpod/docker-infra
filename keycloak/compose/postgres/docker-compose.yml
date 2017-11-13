@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build: ../..
+    ports:
+     - "8080:8080"
+    environment:
+    - DB_VENDOR=POSTGRES
+    - POSTGRES_USER=keycloak
+    - POSTGRES_PASSWORD=mysecretpassword
+    - POSTGRES_DATABASE=keycloak
+    - POSTGRES_PORT_5432_TCP_ADDR=db
+    - KEYCLOAK_MASTER_USER=admin
+    - KEYCLOAK_MASTER_PASSWORD=admin
+    depends_on:
+      - db
+  db:
+    image: postgres
+    environment:
+    - POSTGRES_USER=keycloak
+    - POSTGRES_PASSWORD=mysecretpassword
+    - POSTGRES_DB=keycloak
