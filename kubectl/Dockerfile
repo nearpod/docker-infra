@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM frolvlad/alpine-glibc:alpine-3.6
 
 ARG KUBECTL_VERSION=stable
 ARG KUBECTL_USER=kubectl
