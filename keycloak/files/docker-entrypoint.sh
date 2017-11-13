@@ -28,5 +28,9 @@ fi
 
 $KEYCLOAK_BIN/add-user-keycloak.sh -r master -u ${KEYCLOAK_MASTER_USER:admin} -p $KEYCLOAK_MASTER_PASSWORD
 
+if [ "$PROXY_ADDRESS_FORWARDING" == "true" ]; then
+  $KEYCLOAK_BIN/jboss-cli.sh --file=cli/proxy-https.cli
+fi
+
 exec $KEYCLOAK_BIN/standalone.sh $@
 exit $?

@@ -54,7 +54,11 @@ RUN set -ex; \
     adduser -D -h "$WORKDIR" -u 1000 -G "$KEYCLOAK_USER" "$KEYCLOAK_USER"; \
     [ `id -u "$KEYCLOAK_USER"` -eq 1000 ]; \
     [ `id -g "$KEYCLOAK_USER"` -eq 1000 ]; \
-    chown -R "$KEYCLOAK_USER:$KEYCLOAK_USER" "$KEYCLOAK_HOME";
+    bin/jboss-cli.sh --file=cli/standalone-configuration.cli; \
+    bin/jboss-cli.sh --file=cli/standalone-ha-configuration.cli; \
+    chown -R "$KEYCLOAK_USER:$KEYCLOAK_USER" "$KEYCLOAK_HOME"; \
+    rm -rf "$KEYCLOAK_HOME/standalone/configuration/standalone_xml_history" "$KEYCLOAK_HOME/standalone_ha/configuration/standalone_xml_history";
+
 
 USER jboss:jboss
 
