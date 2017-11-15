@@ -19,7 +19,7 @@ ENV ZK_USER=$ZK_USER \
 RUN set -ex; \
     WORKDIR="$PWD"; \
     # netcat-openbsd is used by the zkOk.sh and zkMetrics.sh scripts
-    apk --no-cache --update add ca-certificates netcat-openbsd curl bash; \
+    apk --no-cache add netcat-openbsd ; \
     curl -q -sSLO "http://www.apache.org/dist/zookeeper/$ZK_DIST/$ZK_DIST.tar.gz"; \
     echo "$SHA1_KEY  $ZK_DIST.tar.gz" | sha1sum -c; \
     mkdir -p "$ZK_INSTALL_DIR"; \
