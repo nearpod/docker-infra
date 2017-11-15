@@ -15,7 +15,7 @@ ENV PATH=$PATH:$KAFKA_HOME/bin
 
 RUN set -ex; \
     WORKDIR="$PWD"; \
-    apk --no-cache --update add ca-certificates curl gnupg bash; \
+    apk --no-cache add gnupg; \
     curl -q -sSLO "http://www.apache.org/dist/kafka/$KAFKA_VERSION/$KAFKA_DIST.tgz"; \
     curl -q -sSLO "http://www.apache.org/dist/kafka/$KAFKA_VERSION/$KAFKA_DIST.tgz.asc"; \
     curl -q -sSLO "http://kafka.apache.org/KEYS"; \

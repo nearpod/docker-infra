@@ -9,10 +9,10 @@ ENV PATH=$PATH:$KAFKA_HOME/bin
 
 RUN set -ex; \
     WORKDIR="$PWD"; \
-    apk --no-cache --update add ca-certificates curl gnupg bash; \
+    apk --no-cache add gnupg; \
     PATH=$PATH:/opt/maven/bin; \
     mkdir -p /opt/maven; \
-	  curl -q -sSLO  "http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz"; \
+    curl -q -sSLO  "http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz"; \
     curl -q -sSLO  "http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz.asc"; \
     curl -q -sSLO  "http://archive.apache.org/dist/maven/KEYS"; \
     export GNUPGHOME="$(mktemp -d)"; \

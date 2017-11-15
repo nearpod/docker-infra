@@ -18,8 +18,7 @@ ENV KEYCLOAK_HOME=$KEYCLOAK_HOME \
 
 RUN set -ex; \
     WORKDIR="$PWD"; \
-    apk --no-cache --update add ca-certificates curl bash; \
-	  curl -q -sSLO  "https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/keycloak-$KEYCLOAK_VERSION.tar.gz"; \
+    curl -q -sSLO  "https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/keycloak-$KEYCLOAK_VERSION.tar.gz"; \
     curl -q -sSLO  "https://downloads.jboss.org/keycloak/$KEYCLOAK_VERSION/keycloak-$KEYCLOAK_VERSION.tar.gz.md5"; \
     echo "$(cat keycloak-$KEYCLOAK_VERSION.tar.gz.md5)  keycloak-$KEYCLOAK_VERSION.tar.gz" | md5sum -c; \
     mkdir -p "$KEYCLOAK_HOME"; \
