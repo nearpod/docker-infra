@@ -1,4 +1,4 @@
-FROM nearpod/alpine-jvm:3.6-jdk8
+FROM nearpod/alpine-jvm:3.7-jdk8
 
 ARG KEYCLOAK_VERSION="3.4.0.Final"
 ARG KEYCLOAK_HOME="/usr/local/keycloak-$KEYCLOAK_VERSION"

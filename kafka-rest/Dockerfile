@@ -1,4 +1,4 @@
-FROM nearpod/alpine-jvm:3.6-jdk8
+FROM nearpod/alpine-jvm:3.7-jdk8
 
 ARG CONFLUENT_VERSION="3.3.0"
 ARG MAVEN_VERSION=3.5.2

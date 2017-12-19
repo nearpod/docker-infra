@@ -1,4 +1,4 @@
-FROM nearpod/alpine-jvm:3.6-jdk8
+FROM nearpod/alpine-jvm:3.7-jdk8
 
 ARG KAFKA_VERSION=1.0.0
 ARG KAFKA_DIST=kafka_2.12-${KAFKA_VERSION}

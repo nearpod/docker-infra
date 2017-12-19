@@ -1,4 +1,4 @@
-FROM nearpod/alpine-jvm:3.6-jdk8
+FROM nearpod/alpine-jvm:3.7-jdk8
 
 ARG SHA1_KEY=9268b4aed71dccad3d7da5bfa5573b66d2c9b565
 ARG ZK_DIST=zookeeper-3.4.11
