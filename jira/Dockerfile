@@ -2,7 +2,7 @@ FROM nearpod/alpine-jvm:3.7-jdk8
 
 ARG JIRA_HOME=/var/atlassian/jira
 ARG JIRA_INSTALL=/opt/atlassian/jira
-ARG JIRA_VERSION=7.5.2
+ARG JIRA_VERSION=7.6.2
 ARG JDBC_MYSQL_VERSION=5.1.44
 ARG JDBC_POSTGRES_VERSION=42.1.4
 
