@@ -11,7 +11,7 @@ ENV LANG="C.UTF-8"
 
 RUN set -ex; \
     WORKDIR="$PWD"; \
-    apk --no-cache add ca-certificates curl bash; \
+    apk --no-cache add ca-certificates curl bash tini; \
     curl -q -sSLO "https://github.com/andreas-schroeder/kafka-health-check/releases/download/v${KAFKA_HEALTH_CHECK_VERSION}/kafka-health-check_${KAFKA_HEALTH_CHECK_VERSION}_linux_amd64.tar.gz"; \
     curl -q -sSLO "https://github.com/andreas-schroeder/kafka-health-check/releases/download/v${KAFKA_HEALTH_CHECK_VERSION}/kafka-health-check_${KAFKA_HEALTH_CHECK_VERSION}_checksums.txt"; \
     grep "kafka-health-check_${KAFKA_HEALTH_CHECK_VERSION}_linux_amd64.tar.gz" "kafka-health-check_${KAFKA_HEALTH_CHECK_VERSION}_checksums.txt" | sha256sum -c; \
@@ -26,3 +26,5 @@ RUN set -ex; \
     [ `id -g "$KAFKA_USER"` -eq 1000 ]
 
 USER kafka:kafka
+
+ENTRYPOINT ["/sbin/tini", "--"]
