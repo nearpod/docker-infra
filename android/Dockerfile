@@ -22,3 +22,13 @@ RUN set -ex; \
   unzip "sdk-tools-linux-${ANDROID_SDK_TOOLS_VERSION}.zip" ; \
   rm "sdk-tools-linux-${ANDROID_SDK_TOOLS_VERSION}.zip" ; \
   yes | sdkmanager --licenses ;
+
+
+# Prefetch common android sdk packages
+RUN set -ex; \
+  sdkmanager 'platform-tools' ; \
+  sdkmanager 'extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2' ; \
+  sdkmanager 'extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2' ; \
+  sdkmanager 'extras;google;m2repository' ; \
+  sdkmanager 'extras;android;m2repository' ; \
+  sdkmanager 'extras;google;google_play_services' ;
