@@ -1,0 +1,13 @@
+version: '3'
+services:
+  jira:
+    build: ../..
+    ports:
+     - "8080:8080"
+    depends_on:
+      - confluence_pg_db
+  confluence_pg_db:
+    image: postgres
+    environment:
+    - POSTGRES_USER=confluence
+    - POSTGRES_PASSWORD=mysecretpassword
