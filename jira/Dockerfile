@@ -1,8 +1,8 @@
-FROM nearpod/alpine-jvm:3.7-jdk8
+FROM nearpod/alpine-jvm:3.7-oracle-jdk8
 
 ARG JIRA_HOME=/var/atlassian/jira
 ARG JIRA_INSTALL=/opt/atlassian/jira
-ARG JIRA_VERSION=7.7.1
+ARG JIRA_VERSION=7.10.1
 ARG JDBC_MYSQL_VERSION=5.1.44
 ARG JDBC_POSTGRES_VERSION=42.1.4
 
@@ -11,10 +11,8 @@ ENV JIRA_VERSION=$JIRA_VERSION \
     JIRA_INSTALL=$JIRA_INSTALL
 
 RUN set -ex; \
-  apk --no-cache add xmlstarlet apr openssl; \
-  apk --no-cache fetch tomcat-native; \
-  apk add -f ./tomcat-native-*.apk; \
-  rm -f ./tomcat-native-*.apk; \
+  apk --no-cache add xmlstarlet apr openssl tomcat-native; \
+  ln -nsf /opt/jdk /usr/lib/jvm/default-jvm; \
   mkdir -p "${JIRA_HOME}"; \
   mkdir -p "${JIRA_INSTALL}/conf/Catalina"; \
   curl -q -sSL "https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz" | tar -xz --directory "${JIRA_INSTALL}" --strip-components=1 --no-same-owner; \
