@@ -12,10 +12,8 @@ ENV CONF_VERSION=$CONF_VERSION \
     JAVA_CACERTS=$JAVA_HOME/jre/lib/security/cacerts
 
 RUN set -ex; \
-  apk --no-cache add xmlstarlet apr openssl; \
-  apk --no-cache fetch tomcat-native; \
-  apk add -f ./tomcat-native-*.apk; \
-  rm -f ./tomcat-native-*.apk; \
+  apk --no-cache add xmlstarlet apr openssl tomcat-native; \
+  ln -nsf /opt/jdk /usr/lib/jvm/default-jvm; \
   mkdir -p "${CONF_HOME}"; \
   mkdir -p "${CONF_INSTALL}/conf/Catalina"; \
   curl -q -sSL "https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${CONF_VERSION}.tar.gz" | tar -xz --directory "${CONF_INSTALL}" --strip-components=1 --no-same-owner; \
