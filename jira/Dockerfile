@@ -30,7 +30,6 @@ RUN set -ex; \
   rm -f "mysql-connector-java-$JDBC_MYSQL_VERSION.jar.md5" "postgresql-$JDBC_POSTGRES_VERSION.jar.md5"; \
   chmod -R 700 "${JIRA_INSTALL}/" /var/atlassian/jira; \
   chown -R daemon:daemon  "${JIRA_INSTALL}/" /var/atlassian/jira; \
-  sed --in-place "s/java version/openjdk version/g" "${JIRA_INSTALL}/bin/check-java.sh"; \
   echo -e "\njira.home=$JIRA_HOME" >> "${JIRA_INSTALL}/atlassian-jira/WEB-INF/classes/jira-application.properties"; \
   touch -d "@0" "${JIRA_INSTALL}/conf/server.xml"
 
