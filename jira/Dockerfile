@@ -31,6 +31,8 @@ RUN set -ex; \
   chmod -R 700 "${JIRA_INSTALL}/" /var/atlassian/jira; \
   chown -R daemon:daemon  "${JIRA_INSTALL}/" /var/atlassian/jira; \
   echo -e "\njira.home=$JIRA_HOME" >> "${JIRA_INSTALL}/atlassian-jira/WEB-INF/classes/jira-application.properties"; \
+  sed -i -e 's/JVM_MINIMUM_MEMORY="384m"/[ -z "${JVM_MINIMUM_MEMORY}" ] \&\& JVM_MINIMUM_MEMORY="384m"/g' "${JIRA_INSTALL}/bin/setenv.sh"; \
+  sed -i -e 's/JVM_MAXIMUM_MEMORY="768m"/[ -z "${JVM_MAXIMUM_MEMORY}" ] \&\& JVM_MAXIMUM_MEMORY="768m"/g' "${JIRA_INSTALL}/bin/setenv.sh"; \
   touch -d "@0" "${JIRA_INSTALL}/conf/server.xml"
 
 USER daemon:daemon

@@ -32,6 +32,7 @@ RUN set -ex; \
   chmod -R 700 "${CONF_INSTALL}/" "${CONF_HOME}/"; \
   chown -R daemon:daemon  "${CONF_INSTALL}/" "${CONF_HOME}"; \
   echo -e "\nconfluence.home=$CONF_HOME" >> "${CONF_INSTALL}/confluence/WEB-INF/classes/confluence-init.properties"; \
+  sed -i -e 's/CATALINA_OPTS="-Xms1024m -Xmx1024m -XX:+UseG1GC ${CATALINA_OPTS}"/CATALINA_OPTS="-Xms${JVM_MINIMUM_MEMORY:-1024m} -Xmx${JVM_MAXIMUM_MEMORY:-1024m} -XX:+UseG1GC ${CATALINA_OPTS}"/' "${CONF_INSTALL}/bin/setenv.sh"; \
   xmlstarlet              ed --inplace \
     --delete               "Server/@debug" \
     --delete               "Server/Service/Connector/@debug" \
