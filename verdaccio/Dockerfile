@@ -5,5 +5,5 @@ MAINTAINER dockerfiles@nearpod.com
 ENV LANG="C.UTF-8"
 
 RUN set -ex; \
-  npm install "verdaccio-s3-storage@^0.0.4"; \
-  npm install "verdaccio-gitlab@^2.0.0"
+  yarn add "verdaccio-s3-storage@^0.0.4"; \
+  yarn add "verdaccio-gitlab@^2.0.0"
