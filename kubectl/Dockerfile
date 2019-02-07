@@ -1,6 +1,8 @@
-FROM frolvlad/alpine-glibc:alpine-3.7
+FROM alpine:3.9
 
-ARG KUBECTL_VERSION=stable
+LABEL MAINTAINER dockerfiles@nearpod.com
+
+ARG KUBECTL_VERSION="v1.13.3"
 ARG KUBECTL_USER=kubectl
 ENV KUBECTL_VERSION=$KUBECTL_VERSION
 
