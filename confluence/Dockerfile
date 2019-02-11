@@ -1,3 +1,6 @@
+FROM alpine:3.8
+RUN set -ex; apk add --no-cache tomcat-native
+
 FROM nearpod/alpine-jvm:3.8-adoptopenjdk-jdk8
 
 ARG CONF_HOME=/var/atlassian/confluence
@@ -11,9 +14,18 @@ ENV CONF_VERSION=$CONF_VERSION \
     CONF_INSTALL=$CONF_INSTALL \
     JAVA_CACERTS=$JAVA_HOME/jre/lib/security/cacerts
 
+COPY --from=0 /usr/lib/libtcnative-1.so.0.2* /usr/lib
+
 RUN set -ex; \
-  apk --no-cache add xmlstarlet apr openssl tomcat-native; \
-  ln -nsf /opt/jdk /usr/lib/jvm/default-jvm; \
+  ln -nsf /usr/lib/libtcnative-1.so.0.2* /usr/lib/libtcnative-1.so; \
+  ln -nsf /usr/lib/libtcnative-1.so.0.2* /usr/lib/libtcnative-1.so.0;
+
+RUN set -ex; \
+  apk --no-cache add xmlstarlet java-cacerts java-common apr libcrypto1.0 libssl1.0 openssl fontconfig ttf-dejavu; \
+  mkdir -p /usr/lib/jvm; \
+  ln -nsf /opt/java/openjdk /usr/lib/jvm/default-jvm; \
+  echo "version=1" > "${JAVA_HOME}/lib/fontconfig.properties"; \
+  echo "sequence.allfonts=default" >> "${JAVA_HOME}/lib/fontconfig.properties"; \
   mkdir -p "${CONF_HOME}"; \
   mkdir -p "${CONF_INSTALL}/conf/Catalina"; \
   curl -q -sSL "https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-${CONF_VERSION}.tar.gz" | tar -xz --directory "${CONF_INSTALL}" --strip-components=1 --no-same-owner; \
