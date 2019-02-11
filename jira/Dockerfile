@@ -23,6 +23,8 @@ RUN set -ex; \
   apk --no-cache add xmlstarlet java-cacerts java-common apr libcrypto1.0 libssl1.0 openssl fontconfig ttf-dejavu; \
   mkdir -p /usr/lib/jvm; \
   ln -nsf /opt/java/openjdk /usr/lib/jvm/default-jvm; \
+  echo "version=1" > "${JAVA_HOME}/lib/fontconfig.properties"; \
+  echo "sequence.allfonts=default" >> "${JAVA_HOME}/lib/fontconfig.properties"; \
   mkdir -p "${JIRA_HOME}"; \
   mkdir -p "${JIRA_INSTALL}/conf/Catalina"; \
   curl -q -sSL "https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-${JIRA_VERSION}.tar.gz" | tar -xz --directory "${JIRA_INSTALL}" --strip-components=1 --no-same-owner; \
