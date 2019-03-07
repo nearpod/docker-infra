@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.9
 RUN set -ex; apk add --no-cache tomcat-native
 
 FROM nearpod/alpine-jvm:3.8-adoptopenjdk-jdk8
@@ -20,7 +20,7 @@ RUN set -ex; \
   ln -nsf /usr/lib/libtcnative-1.so.0.2* /usr/lib/libtcnative-1.so.0;
 
 RUN set -ex; \
-  apk --no-cache add xmlstarlet java-cacerts java-common apr libcrypto1.0 libssl1.0 openssl fontconfig ttf-dejavu; \
+  apk --no-cache add xmlstarlet java-cacerts java-common apr libcrypto1.1 libssl1.1 openssl fontconfig ttf-dejavu; \
   mkdir -p /usr/lib/jvm; \
   ln -nsf /opt/java/openjdk /usr/lib/jvm/default-jvm; \
   echo "version=1" > "${JAVA_HOME}/lib/fontconfig.properties"; \
