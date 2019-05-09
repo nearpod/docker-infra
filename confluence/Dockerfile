@@ -1,27 +1,22 @@
-FROM alpine:3.8
-RUN set -ex; apk add --no-cache tomcat-native
 
-FROM nearpod/alpine-jvm:3.8-adoptopenjdk-jdk8
+FROM nearpod/alpine-jvm:bionic-slim-adoptopenjdk-jdk8
 
 ARG CONF_HOME=/var/atlassian/confluence
 ARG CONF_INSTALL=/opt/atlassian/confluence
-ARG CONF_VERSION=6.13.2
+ARG CONF_VERSION=6.15.2
 ARG JDBC_MYSQL_VERSION=5.1.47
 ARG JDBC_POSTGRES_VERSION=42.2.5
+ARG DEBIAN_FRONTEND=noninteractive
 
 ENV CONF_VERSION=$CONF_VERSION \
     CONF_HOME=$CONF_HOME \
     CONF_INSTALL=$CONF_INSTALL \
     JAVA_CACERTS=$JAVA_HOME/jre/lib/security/cacerts
 
-COPY --from=0 /usr/lib/libtcnative-1.so.0.2* /usr/lib
-
 RUN set -ex; \
-  ln -nsf /usr/lib/libtcnative-1.so.0.2* /usr/lib/libtcnative-1.so; \
-  ln -nsf /usr/lib/libtcnative-1.so.0.2* /usr/lib/libtcnative-1.so.0;
-
-RUN set -ex; \
-  apk --no-cache add xmlstarlet java-cacerts java-common apr libcrypto1.0 libssl1.0 openssl fontconfig ttf-dejavu; \
+  apt-get update; \
+  apt-get install -y xmlstarlet fontconfig; \
+  apt-get install -y fonts-dejavu fonts-ubuntu; \
   mkdir -p /usr/lib/jvm; \
   ln -nsf /opt/java/openjdk /usr/lib/jvm/default-jvm; \
   echo "version=1" > "${JAVA_HOME}/lib/fontconfig.properties"; \
@@ -56,7 +51,9 @@ RUN set -ex; \
     --delete               "Server/Service/Engine/Host/Context/@debug" \
                            "${CONF_INSTALL}/conf/server.xml" ; \
   touch -d "@0" "${CONF_INSTALL}/conf/server.xml" ; \
-  chown daemon:daemon     "${JAVA_CACERTS}"
+  chown daemon:daemon     "${JAVA_CACERTS}"; \
+  apt-get clean; \
+  rm -rf /var/lib/{apt/lists,cache,log}/* /tmp/* /var/tmp/*;
 
 USER daemon:daemon
 
