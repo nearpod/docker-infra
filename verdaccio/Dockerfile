@@ -1,4 +1,4 @@
-from verdaccio/verdaccio:3.8
+from verdaccio/verdaccio:3.11.7
 
 MAINTAINER dockerfiles@nearpod.com
 
