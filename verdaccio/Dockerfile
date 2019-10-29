@@ -9,6 +9,5 @@ USER root
 RUN set -ex; \
   yarn add "verdaccio-s3-storage@^0.2.0"; \
   yarn add "verdaccio-gitlab@^2.2.0"; \
-  yarn add "verdaccio-gitlab-ci"
 
 USER $VERDACCIO_USER_UID
