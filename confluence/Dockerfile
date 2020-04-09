@@ -3,7 +3,7 @@ FROM nearpod/alpine-jvm:bionic-slim-adoptopenjdk-jdk8
 
 ARG CONF_HOME=/var/atlassian/confluence
 ARG CONF_INSTALL=/opt/atlassian/confluence
-ARG CONF_VERSION=6.15.4
+ARG CONF_VERSION=6.14.3
 ARG JDBC_MYSQL_VERSION=5.1.48
 ARG JDBC_POSTGRES_VERSION=42.2.12
 ARG DEBIAN_FRONTEND=noninteractive
