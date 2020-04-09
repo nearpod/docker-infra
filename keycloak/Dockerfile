@@ -24,13 +24,13 @@ RUN set -ex; \
     mkdir -p "$KEYCLOAK_HOME"; \
     tar -xzf "keycloak-$KEYCLOAK_VERSION.tar.gz" --strip-components=1 -C "$KEYCLOAK_HOME"; \
     rm -f "keycloak-$KEYCLOAK_VERSION.tar.gz" "keycloak-$KEYCLOAK_VERSION.tar.gz.md5"; \
-    curl -q -sSLO "http://central.maven.org/maven2/mysql/mysql-connector-java/$JDBC_MYSQL_VERSION/mysql-connector-java-$JDBC_MYSQL_VERSION.jar"; \
-    curl -q -sSLO "http://central.maven.org/maven2/mysql/mysql-connector-java/$JDBC_MYSQL_VERSION/mysql-connector-java-$JDBC_MYSQL_VERSION.jar.md5"; \
+    curl -q -sSLO "https://repo1.maven.org/maven2/mysql/mysql-connector-java/$JDBC_MYSQL_VERSION/mysql-connector-java-$JDBC_MYSQL_VERSION.jar"; \
+    curl -q -sSLO "https://repo1.maven.org/maven2/mysql/mysql-connector-java/$JDBC_MYSQL_VERSION/mysql-connector-java-$JDBC_MYSQL_VERSION.jar.md5"; \
     echo "$(cat mysql-connector-java-$JDBC_MYSQL_VERSION.jar.md5)  mysql-connector-java-$JDBC_MYSQL_VERSION.jar" | md5sum -c; \
     mkdir -p "$KEYCLOAK_HOME/modules/system/layers/base/com/mysql/jdbc/main/"; \
     mv "mysql-connector-java-$JDBC_MYSQL_VERSION.jar" "$KEYCLOAK_HOME/modules/system/layers/base/com/mysql/jdbc/main/mysql-jdbc.jar"; \
-    curl -q -sSLO "http://central.maven.org/maven2/org/postgresql/postgresql/$JDBC_POSTGRES_VERSION/postgresql-$JDBC_POSTGRES_VERSION.jar"; \
-    curl -q -sSLO "http://central.maven.org/maven2/org/postgresql/postgresql/$JDBC_POSTGRES_VERSION/postgresql-$JDBC_POSTGRES_VERSION.jar.md5"; \
+    curl -q -sSLO "https://repo1.maven.org/maven2/org/postgresql/postgresql/$JDBC_POSTGRES_VERSION/postgresql-$JDBC_POSTGRES_VERSION.jar"; \
+    curl -q -sSLO "https://repo1.maven.org/maven2/org/postgresql/postgresql/$JDBC_POSTGRES_VERSION/postgresql-$JDBC_POSTGRES_VERSION.jar.md5"; \
     echo "$(cat postgresql-$JDBC_POSTGRES_VERSION.jar.md5)  postgresql-$JDBC_POSTGRES_VERSION.jar" | md5sum -c; \
     mkdir -p "$KEYCLOAK_HOME/modules/system/layers/base/org/postgresql/jdbc/main"; \
     mv "postgresql-$JDBC_POSTGRES_VERSION.jar" "$KEYCLOAK_HOME/modules/system/layers/base/org/postgresql/jdbc/main/postgres-jdbc.jar"; \
